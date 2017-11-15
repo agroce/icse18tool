@@ -6,4 +6,35 @@ The tool can easily be installed using Python's {\tt pip} package management sys
 pip install universalmutator
 \end{code}
 
-The module is pure Python and depends on no modules other than built-in Python libraries, so should be useable on almost any system that supports Python 2.7+.  Mutation with TCE of a particular language, of course, may depend on having that language's compiler available (e.g., {\tt swiftc} is used to compile swift code).
+The module is pure Python and depends on no modules other than
+built-in Python libraries, so should be useable on almost any system
+that supports Python 2.7+.  Mutation with TCE of a particular
+language, of course, may depend on having that language's compiler
+available (e.g., {\tt swiftc} is used to compile swift code).
+
+To mutate a source file, simply type:
+
+
+\begin{code}
+mutate <sourcefile>
+\end{code}
+
+If the source file extension is one of those supported (currently {\tt
+  .c}, {\tt .cpp}, {\tt .java}, {\tt .py}, and {\tt .swift}), the tool
+will automatically determine the rules to use and generate a set of
+mutants.  For example, if {\tt <sourcefile>} is {\tt avltree.c}, it
+will generate {\tt avltree.mutant.0.c}, {\tt avltree.mutant.1.c}, and
+so forth.  For Swift and Python files, the tool will also attempt to
+compile each mutant, and only generate mutant files for mutants that
+(1) compile without syntax errors and (2) do not produce equivalent
+object files to either the original source code or another
+already-generated mutant.  Because the use of include files and
+compiler directives makes it difficult to automatically check C files
+for successful compilation, the tool also supports a mode where the
+user provides a compilation command to be used to check for valid
+mutants, e.g.:
+
+
+\begin{code}
+mutate foo.c --cmd ''clang -c MUTANT -I .''
+\end{code}

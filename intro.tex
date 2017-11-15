@@ -1,12 +1,50 @@
 \section{Introduction}
 
-The universal mutator (\url{https://github.com/agroce/universalmutator}) is a tool for mutation testing \cite{PracProg,Mut2000}.  
-Three principles:
+Mutation testing \cite{PracProg,Mut2000} is a widely used technique,
+originally proposed as a way for test engineers to understand
+omissions in their testing, and now routinely used to evaluate
+novel software testing methods \cite{ISSTA13,ahmed_testedness}, and, increasingly, in software
+fault localization \cite{Metallaxis,multilingual,TransProgTest}.
+
+Unfortunately, despite the considerable utility of mutation testing,
+effective mutation testing tools are surprisingly rare.  Java alone
+has widely available, easily used mutation tools, but the most popular
+and useful of these, PIT \cite{pittest} operates only at the bytecode
+level, making it difficult for users to read and understand the
+generated mutants.  While there are multiple tools for C mutation,
+they often crash on surprisingly simple programs, and both Milu
+(\url{https://github.com/yuejia/Milu}) and Proteum
+(\url{https://github.com/magsilva/proteum}) have not been updated
+since mid-2016.  In fact, the simple Prolog-based tool developed by
+Jamie Andrews \cite{mutant} is still widely used in publication and
+practice, despite not working with recent versions of the Prolog compiler.
+
+The {\tt universalmutator}\footnote{\url{https://github.com/agroce/universalmutator}} is a tool for
+mutation testing \cite{PracProg,Mut2000} that aims to expand the
+applicability of mutation testing by making it easy to extend
+effective mutant generation to new programming languages.
+The tool's design is informed by three basic principles:
 
 \begin{enumerate}
-\item Text can approximate most AST-aware mutants in practice.
-\item Leverage TCE.
-\item Gopinath et. al let a thousand mutants bloom.
+\item In practice, most source-code mutants of interest can be
+  produced without actually parsing the language of a source code
+  file.  Most useful mutations are approximately equivalent to a
+  set of string manipulations that can be defined by a regular
+  expression to match and a replacement string.  This makes it
+  possible to avoid the onerous work of building a parser for every
+  language to be mutated.
+\item Modern optimizing compilers are better at detecting invalid and
+  (more importantly) equivalent and redundant mutants than any tool
+  that can be produced with a reasonable amount of effort.  Reducing
+  the set of mutants to be tested to useful mutants is most easily
+  approached by leveraging Trivial Compiler Equivalence \cite{TCE}.
+\item Because of the theoretical and practical limits of mutation
+  reduction strategies \cite{Gopinath1,Gopinath2}, the
+  effectiveness of random sampling \cite{Gopinath3}, and the need for
+  novel mutants to correlate to important classes of software defect
+  \cite{Just2014mutants}, it is essential for a mutation tool to make adding new
+  kinds of mutations easy, and to support custom, project-specific
+  mutants defined by developers expert in their own code base.
 \end{enumerate}
 
 \begin{figure}
@@ -90,10 +128,20 @@ DO\_NOT\_MUTATE ==> DO\_NOT\_MUTATE
 \label{fig:universal}
 \end{figure}
 
+The design of {\tt universalmutator} is simple.  After determining
+which language a source file is written in, it applies appropriate
+regular expression based mutation rules, contained in {\tt .rules}
+files (a number of which are provided with the tool).  In most cases, a source file will be mutated based on multiple
+rule files:  there is a set of ``universal'' mutations rules, common
+to all languages, a set of rules for C-like languages, and then
+(often) as set of rules for each specific language.  For instance,
+mutating a Swift program involves generating mutants based on {\tt
+  universal.rules}, {\tt c\_like.rules}, and {\tt swift.rules}.  
+
 Figure \ref{fig:universal} shows the set of rules that are applied in
 common to all languages.  Some of these rules are irrelevant to some
 languages (for instance, Python does not use {\tt \&\&} as a logical
-operator), but in such cases the present of the rule is harmless.  The
+operator), but in such cases the presence of the rule is harmless.  The
 core mutations defined here include various operator replacements,
 numeric and string constant replacements (introducing several
 additions to the set used by Andrews \cite{mutant}, such as replacing
@@ -105,5 +153,14 @@ useful:  first, some lines may be known to related to untested code
 (e.g., {\tt WARNING} messages that are never checked by tests);
 second, in rare instances a statment may be dangerous to mutate, such
 as a network or file system operation, but there is interest in
-mutating other aspects of computation.
+mutating other aspects of computation.  The example rule file makes
+the structure of a mutation rule clear:  the left hand side of a
+mutation is a regular expression, using Python's notation for regexps;
+the right hand side (across the {\tt ==>}) is a Python regular
+expression replacement string, which can use {\tt \textbackslash 1}, {\tt
+  \textbackslash 2}
+etc. to include groups from the regexp that matched.  Under this
+scheme, most mutations are simple to define, and the only major
+limitation for common mutation operators is that the approach does not
+handle deletion of multiple-line statements.
 

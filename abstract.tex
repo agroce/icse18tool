@@ -3,12 +3,15 @@ Mutation testing tools usually target only one programming language,
 and rely on parsing a program to generate mutants, or operate not at
 the source level but on compiled bytecodes.  Unfortunately,
 developing a mutation testing tool for a new language in this paradigm
-is a difficult and time-consuming undertaking.  We introduce a tool
-based on specifying regexp-defined transformations of source code that
-makes it easy to mutate programs across a variety of languages.  This
+is a difficult and time-consuming undertaking.  Moreover,
+bytecode/intermediate language mutants are difficult for programmers
+to read and understand.  This paper presents a tool, the {\tt universalmutator},
+based on regexp-defined transformations of source code.  The
+regexp-based approach
 provides multiple advantages.  First, our tool is easy to adapt to new
-languages.  As a proof-of-concept, we offer the ability to create
-mutants of swift programs.  Second, the method makes handling
-multi-language programs and systems simple.  Finally, our approach
+languages; e.g. we present here the first mutation tool for Apple's
+Swift programming language.  Second, the method makes handling
+multi-language programs and systems simple, since the same tool can
+support each language.  Finally, our approach
 makes it easy for users to add custom, project-specific, mutations.
 \end{abstract}
