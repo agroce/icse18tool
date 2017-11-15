@@ -29,7 +29,8 @@ compile each mutant, and only generate mutant files for mutants that
 (1) compile without syntax errors and (2) do not produce equivalent
 object files to either the original source code or another
 already-generated mutant.  Because the use of include files and
-compiler directives makes it difficult to automatically check C files
+compiler directives makes it difficult to automatically check C and
+C++ files
 for successful compilation, the tool also supports a mode where the
 user provides a compilation command to be used to check for valid
 mutants, e.g.:
@@ -38,3 +39,10 @@ mutants, e.g.:
 \begin{code}
 mutate foo.c --cmd ''clang -c MUTANT -I .''
 \end{code}
+
+\noindent where {\tt MUTANT} will be replaced by the name of a
+generated temporary file for the mutant.  Constructing a TCE checker
+to compare C and C++ object files is non-trivial, due to build
+complexities and object formats that include timestamps, so we allow
+users to write Python handlers that perform that task in a project and
+compiler specific-way.
