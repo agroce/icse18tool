@@ -63,6 +63,11 @@ analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree exampl
 \% analyze\_mutants avl.py ``tstl\_rt --timeout 10''
 \end{code}
 
-This process will produce a pair of files, {\tt notkilled.txt} and {\tt
-  killed.txt} containing names of mutants for which the command
+The {\tt mutate} command will generate 793 valid mutants, 488 invalid
+mutants (e.g., changing an {\tt if} into a {\tt pass} in a failed
+statement deletion), and 19 redundant mutants equivalent either to one
+of the valid mutants or the original {\tt avl.py}.
+Running {\tt analyze\_mutants} will produce a pair of files, {\tt notkilled.txt} and {\tt
+  killed.txt}, containing names of mutants for which the {\tt tstl\_rt}
+command (which runs TSTL's random tester, with a timeout of 10 seconds)
 returned an error code of zero or non-zero, respectively.
