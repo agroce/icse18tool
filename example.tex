@@ -3,7 +3,7 @@
 The tool can easily be installed using Python's {\tt pip} package management system:
 
 \begin{code}
-pip install universalmutator
+\% pip install universalmutator
 \end{code}
 
 The module is pure Python and depends on no modules other than
@@ -16,7 +16,7 @@ To mutate a source file, simply type:
 
 
 \begin{code}
-mutate <sourcefile>
+\% mutate <sourcefile>
 \end{code}
 
 If the source file extension is one of those supported (currently {\tt
@@ -37,12 +37,32 @@ mutants, e.g.:
 
 
 \begin{code}
-mutate foo.c --cmd ''clang -c MUTANT -I .''
+\% mutate foo.c --cmd ``clang -c MUTANT -I .''
 \end{code}
 
 \noindent where {\tt MUTANT} will be replaced by the name of a
-generated temporary file for the mutant.  Constructing a TCE checker
+generated temporary file for the mutant, clang will be used as the
+compiler, and the current directory will be used as an include path.  Constructing a TCE checker
 to compare C and C++ object files is non-trivial, due to build
 complexities and object formats that include timestamps, so we allow
 users to write Python handlers that perform that task in a project and
 compiler specific-way.
+
+To analyze the generated mutants, just tell the tool the name of the
+source file to be mutated, and the command to run to process the
+mutants.  For example, the complete process for performing mutation
+analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree example from scratch is just:
+
+
+\begin{code}
+\% pip install tstl
+\% git clone https://github.com/agroce/tstl.git
+\% cd tstl/examples/AVL
+\% tstl avlnew.tstl
+\% mutate avl.py
+\% analyze\_mutants avl.py ``tstl\_rt --timeout 10''
+\end{code}
+
+This process will produce a pair of files, {\tt notkilled.txt} and {\tt
+  killed.txt} containing names of mutants for which the command
+returned an error code of zero or non-zero, respectively.
