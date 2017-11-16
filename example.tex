@@ -72,4 +72,5 @@ Running {\tt analyze\_mutants} will produce a pair of files, {\tt notkilled.txt}
 command (which runs TSTL's random tester, with a timeout of 10
 seconds, here run with a ulimit of 30 seconds to catch mutants
 producing non-termination)
-returned an error code of zero or non-zero, respectively.
+returned an error code of zero or non-zero, respectively.  Ten seconds
+of random testing kills 388 of the mutants, but 405 survive.
