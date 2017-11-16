@@ -23,7 +23,7 @@ The {\tt universalmutator}\footnote{\url{https://github.com/agroce/universalmuta
 mutation testing \cite{PracProg,Mut2000} that aims to expand the
 applicability of mutation testing by making it easy to extend
 effective mutant generation to new programming languages.
-The tool's design is informed by three basic principles:
+The tool's design is informed by four basic principles:
 
 \begin{enumerate}
 \item In practice, most source-code mutants of interest can be
@@ -45,6 +45,15 @@ The tool's design is informed by three basic principles:
   \cite{Just2014mutants}, it is essential for a mutation tool to make adding new
   kinds of mutations easy, and to support custom, project-specific
   mutants defined by developers expert in their own code base.
+\item Mutants are used in a wide variety of contexts; while it limits
+  the efficiency of our tool, we aim to make it easy to integrate it
+  into a variety of testing workflows and software engineering
+  algorithms.  This leads us to a UNIX-like ``little tools''
+  philosophy, where rather than having one monolithic program for
+  mutant generation, execution, and presentation of results, we
+  provide separate tools for mutant generation, mutant execution,
+  exclusion of mutants based on code coverage, and so forth, using
+  simple text files as a means of communcation between these tools.
 \end{enumerate}
 
 \begin{figure}
