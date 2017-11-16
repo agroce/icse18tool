@@ -63,7 +63,7 @@ analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree exampl
 % analyze_mutants avl.py ``ulimit -t30; tstl_rt -t 10''
 \end{verbatim}
 
-The {\tt mutate} command will generate 793 valid mutants, 488 invalid
+The {\tt mutate} tool will generate 793 valid mutants, 488 invalid
 mutants (e.g., changing an {\tt if} into a {\tt pass} in a failed
 statement deletion), and 19 redundant mutants equivalent either to one
 of the valid mutants or the original {\tt avl.py}.
@@ -74,3 +74,18 @@ seconds, here run with a ulimit of 30 seconds to catch mutants
 producing non-termination)
 returned an error code of zero or non-zero, respectively.  Ten seconds
 of random testing kills 388 of the mutants, but 405 survive.
+
+The {\tt analyze\_mutants} tool optionally takes a third argument, the
+name of a file containing mutants to ignore.  This lets users write
+their own code to prune mutants without having to remove the mutant
+files.  The {\tt universalmutator} provides an additional tool, {\tt
+  check\_covered <sourcefile> <coveragefile> <outfile>} that scans all
+mutants of sourcefile, determines their location (recall that for us all mutants will correspond to a single line
+of {\tt sourcefile}), and then outputs a file ({\tt outfile})
+containing all mutants not present in {\tt coveragefile}.  The
+expected format for {\tt coveragefile} is a list of line numbers,
+delimited by whitespace, starting from 1; the optional {\tt --tstl}
+argument also allows the tool to process internal coverage reports
+from the {\tt tstl} testing tools.  Of the 405 surviving mutants, 67
+are in code not covered during even 5 minutes of random testing, in
+this instance mostly test code not part of the actual AVL class.
