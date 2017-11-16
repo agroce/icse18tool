@@ -54,14 +54,14 @@ mutants.  For example, the complete process for performing mutation
 analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree example from scratch is just:
 
 
-\begin{code}
-\% pip install tstl
-\% git clone https://github.com/agroce/tstl.git
-\% cd tstl/examples/AVL
-\% tstl avlnew.tstl
-\% mutate avl.py
-\% analyze\_mutants avl.py ``tstl\_rt --timeout 10''
-\end{code}
+\begin{verbatim}
+% pip install tstl
+% git clone https://github.com/agroce/tstl.git
+% cd tstl/examples/AVL
+% tstl avlnew.tstl
+% mutate avl.py
+% analyze_mutants avl.py ``ulimit -t30; tstl_rt -t 10''
+\end{verbatim}
 
 The {\tt mutate} command will generate 793 valid mutants, 488 invalid
 mutants (e.g., changing an {\tt if} into a {\tt pass} in a failed
@@ -69,5 +69,7 @@ statement deletion), and 19 redundant mutants equivalent either to one
 of the valid mutants or the original {\tt avl.py}.
 Running {\tt analyze\_mutants} will produce a pair of files, {\tt notkilled.txt} and {\tt
   killed.txt}, containing names of mutants for which the {\tt tstl\_rt}
-command (which runs TSTL's random tester, with a timeout of 10 seconds)
+command (which runs TSTL's random tester, with a timeout of 10
+seconds, here run with a ulimit of 30 seconds to catch mutants
+producing non-termination)
 returned an error code of zero or non-zero, respectively.
