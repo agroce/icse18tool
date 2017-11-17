@@ -28,10 +28,13 @@ so forth.  For Swift and Python files, the tool will also attempt to
 compile each mutant, and only generate mutant files for mutants that
 (1) compile without syntax errors and (2) do not produce equivalent
 object files to either the original source code or another
-already-generated mutant.  Because the use of include files and
+already-generated mutant.  Because the use of a linker, include paths, and
 compiler directives makes it difficult to automatically check C and
-C++ files
-for successful compilation, the tool also supports a mode where the
+C++ files for successful compilation \footnote{This difficulty is a
+  significant contrast to languages
+  like Python or Swift, where even a file that is part of a large
+  project is often easily re-compiled by itself, without any extra
+  options or configuration.}, the tool also supports a mode where the
 user provides a compilation command to be used to check for valid
 mutants, e.g.:
 
