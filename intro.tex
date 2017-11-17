@@ -9,7 +9,7 @@ fault localization \cite{Metallaxis,multilingual,TransProgTest}.
 Unfortunately, despite the considerable utility of mutation testing,
 effective mutation testing tools are surprisingly rare.  Java alone
 has widely available, easily used mutation tools, but the most popular
-and useful of these, PIT \cite{pittest} operates only at the bytecode
+and useful of these, PIT \cite{pittest} operates only at the byte code
 level, making it difficult for users to read and understand the
 generated mutants.  While there are multiple tools for C mutation,
 they often crash on surprisingly simple programs, and both Milu
@@ -47,13 +47,13 @@ The tool's design is informed by four basic principles:
   mutants defined by developers expert in their own code base.
 \item Mutants are used in a wide variety of contexts; while it limits
   the efficiency of our tool, we aim to make it easy to integrate it
-  into a variety of testing workflows and software engineering
+  into a variety of testing work-flows and software engineering
   algorithms.  This leads us to a UNIX-like ``little tools''
   philosophy, where rather than having one monolithic program for
   mutant generation, execution, and presentation of results, we
   provide separate tools for mutant generation, mutant execution,
   exclusion of mutants based on code coverage, and so forth, using
-  simple text files as a means of communcation between these tools.
+  simple text files as a means of communication between these tools.
 \end{enumerate}
 
 \begin{figure}
@@ -160,7 +160,7 @@ mechanism for annotating that a line should never be mutated.  This is
 a feature not (to our knowledge) present in most tools, but can be
 useful:  first, some lines may be known to related to untested code
 (e.g., {\tt WARNING} messages that are never checked by tests);
-second, in rare instances a statment may be dangerous to mutate, such
+second, in rare instances a statement may be dangerous to mutate, such
 as a network or file system operation, but there is interest in
 mutating other aspects of computation.  The example rule file makes
 the structure of a mutation rule clear:  the left hand side of a
