@@ -99,7 +99,8 @@ The parser-free nature of {\tt universalmutator} makes it easy to
 use in ways that might not easily
 work with a more traditional mutation tool.  For example, it can
 handle files that are ``almost'' in some known-to-the-tool language
-just as well as files actually in the language.  Model checking and
+just as well as files actually in the language, which would usually be
+rejected by a parser-based tool.  Model checking and
 testing tools, such as TSTL  and Spin \cite{SPIN}, embed other
 languages in test harnesses (Python for TSTL, C for Spin's PROMELA
 language).  In these cases you just mutate the appropriate file, after

@@ -17,7 +17,7 @@ they often crash on surprisingly simple programs, and both Milu
 (\url{https://github.com/magsilva/proteum}) have not been updated
 since mid-2016.  In fact, the simple Prolog-based tool developed by
 Jamie Andrews \cite{mutant} is still widely used in publication and
-practice, despite not working with recent versions of the Prolog compiler.
+practice, despite not even working with recent versions of the Prolog compiler.
 
 The {\tt universalmutator}\footnote{\url{https://github.com/agroce/universalmutator}} is a tool for
 mutation testing \cite{PracProg,Mut2000} that aims to expand the
@@ -136,6 +136,19 @@ DO\_NOT\_MUTATE ==> DO\_NOT\_MUTATE
 \caption{Universal mutation rules for all languages.}
 \label{fig:universal}
 \end{figure}
+
+Such an approach has limitations, of course.  In general, it will
+usually produce more invalid mutants, or generally uninteresting mutants (e.g.,
+modifying part of a constant string), and it will be difficult to
+apply many of the methods proposed for speeding up mutation testing,
+such as mutant schemata \cite{untch1993mutation} or ``forking''
+approaches \cite{Equiv,TopsyTurvy}.  However, we believe that having a
+somewhat inefficient mutation tool is better, for the many languages
+currently lacking tools, than having no tool at all.  Moreoever, the
+more sophisticated techniques for making mutation testing more
+efficient also make it more difficult to allow custom mutation
+operators, discouraging project-specific approaches or experimentation
+with novel operators for, e.g., concurrency or functional programming.
 
 The design of {\tt universalmutator} is simple.  After determining
 which language a source file is written in, it applies appropriate
