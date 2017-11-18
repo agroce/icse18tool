@@ -1,22 +1,26 @@
 \begin{abstract}
-Mutation testing is widely used in research (even if not in practice).
-Mutation testing tools usually target only one programming language,
-and rely on parsing a program to generate mutants, or operate not at
-the source level but on compiled bytecode.  Unfortunately,
-developing a robust mutation testing tool for a new language in this paradigm
-is a difficult and time-consuming undertaking.  Moreover,
-bytecode/intermediate language mutants are difficult for programmers
-to read and understand.  This paper presents a simple tool, called {\tt universalmutator},
-based on regexp-defined transformations of source code.  The
-regexp-based approach
-provides multiple advantages.  First, our tool is easy to adapt to new
-languages; e.g., we present here the first mutation tool for the Apple's
-Swift programming language.  Second, the method makes handling
-multi-language programs and systems simple, because the same tool can
-support every language.  Finally, our approach
-makes it easy for users to add custom, project-specific mutations.
-The drawback is that the approach can generate some mutants that do
-not compile or miss to generate some mutants that would have compiled.
+  Mutation testing is widely used in research (even if not in
+  practice).  Mutation testing tools usually target only one
+  programming language, and rely on parsing a program to generate
+  mutants, or operate not at the source level but on compiled
+  bytecode.  Unfortunately, developing a robust mutation testing tool
+  for a new language in this paradigm is a difficult and
+  time-consuming undertaking.  Moreover, bytecode/intermediate
+  language mutants are difficult for programmers to read and
+  understand.  This paper presents a simple tool, called {\tt
+    universalmutator}, based on regular-expression-defined transformations of
+  source code.  The primary drawback of such an approach is that our
+  tool can generate invalid mutants that do not compile, and sometimes
+  fails to generate mutants that a parser-based tool would have
+  produced. Additionally, it is incompatible with some approaches to
+  improving the efficiency of mutation testing.  However, the
+  regexp-based approach provides multiple compensating advantages.
+  First, our tool is easy to adapt to new languages; e.g., we present
+  here the first mutation tool for the Apple's Swift programming
+  language.  Second, the method makes handling multi-language programs
+  and systems simple, because the same tool can support every
+  language.  Finally, our approach makes it easy for users to add
+  custom, project-specific mutations.
 \end{abstract}
 
 % LocalWords:  bytecode universalmutator multi
