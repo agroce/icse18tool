@@ -92,3 +92,57 @@ argument also allows the tool to process internal coverage reports
 from the {\tt tstl} testing tools.  Of the 405 surviving mutants, 67
 are in code not covered during even 5 minutes of random testing, in
 this instance mostly test code not part of the actual AVL class.
+
+\section{Extending the Mutator}
+
+The parser-free nature of {\tt universalmutator} makes it easy to
+use in ways that might not easily
+work with a more traditional mutation tool.  For example, it can
+handle files that are ``almost'' in some known-to-the-tool language
+just as well as files actually in the language.  Model checking and
+testing tools, such as TSTL  and Spin \cite{SPIN}, embed other
+languages in test harnesses (Python for TSTL, C for Spin's PROMELA
+language).  In these cases you just mutate the appropriate file, after
+telling the mutator what language it is ``written in.''  Some mutants
+may be invalid, but these will just be rejected by the language tools
+and discarded.
+
+However, in some cases simply using an existing language's rules to
+mutate something close to that language is not
+all that is needed.  You may want to add a new mutant, for a project,
+or you may need to define basic mutation operators for a novel
+programming language with unusual syntax.  In both cases, the solution
+is simple:  just write a new {\tt .rules} file, and either add it to
+the {\tt mutate} call, or, if you really need to go outside the box,
+and the {\tt univeral} mutation rules no longer apply, use the
+language {\tt none} and explicitly note the rule file(s) to be used.
+
+Because of the regexp style of defining operators, you can write a
+quick, clumsy rule if you want to try an experimental operator out and
+see how well it works, or refine it further.  For instance, one might
+think that changing {\tt while} loops into {\tt if} statements is a
+promising idea.  This doesn't represent a common human error,
+probably, but can check test suites to make sure they are good at
+investigating loop iterations beyond running zero or one or more
+times.  A quick-and-dirty sketch of the rule might look like:
+
+\begin{code}
+while ==> if 
+\end{code}
+
+And this version of the rule will largely suffice.  It will, of
+course, replace {\tt while} strings in function names, but perhaps
+this isn't enough of a problem to matter.  If you do eventually decide (for instance when
+working with a large project where there are dozens of methods on a
+timed event class named with the pattenr {\tt whileFoo}) that the rule
+needs refining, you can ensure that while is a word on its own:
+
+\begin{code}
+while(\\W) ==> if\\1 
+\end{code}
+
+\noindent This forces the character after the while to be something
+that shows the {\tt while} is not part of a valid identified, in most
+languages.  We capture it using the parentheses, and reproduce the
+same character in the replacement using {\tt \textbackslash1}.
+
