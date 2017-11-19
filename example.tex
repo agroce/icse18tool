@@ -122,7 +122,8 @@ Because of the regexp style of defining operators, you can write a
 quick, clumsy rule if you want to try an experimental operator out and
 see how well it works, or refine it further.  For instance, one might
 think that changing {\tt while} loops into {\tt if} statements is a
-promising idea.  This doesn't represent a common human error,
+promising idea for a mutation operator\footnote{We added this one to
+  the universal rules file, after writing about it here.}.  This doesn't represent a common human error,
 probably, but can check test suites to make sure they are good at
 investigating loop iterations beyond running zero or one or more
 times.  A quick-and-dirty sketch of the rule might look like:
@@ -147,3 +148,16 @@ that shows the {\tt while} is not part of a valid identified, in most
 languages.  We capture it using the parentheses, and reproduce the
 same character in the replacement using {\tt \textbackslash1}.
 
+Another use for the same mechanism is to \emph{avoid} mutating code.
+For instance, imagine testing a large project with many warning
+messages, always consisting of the use of a {\tt WARNING} macro.  The
+system tests do not make use of these warnings, and so they end up as
+a large set of equivalent mutants, modifying the strings, deleting the
+statements, and modifying numeric constants or arithmetic operators in
+the warnings.  Annotating all of these with {\tt DO\_NOT\_MUTATE} is
+inconvenient and hurts program readability.  Instead, you can just add a
+{\tt nowarnings.rules} to every {\tt mutate} call:
+
+\begin{code}
+WARNING ==> DO\_NOT\_MUTATE
+\end{code}
