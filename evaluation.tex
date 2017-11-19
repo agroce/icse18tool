@@ -15,3 +15,21 @@ We also applied our tool to an ongoing effort to test the {\tt
 and confirmed that our mutants were equally useful for test suite
 evaluation and improvement as the mutants produced by a much more
 complex, AST-based tool, {\tt muupi} \cite{muupi}.
+
+Finally, we compared our results to PIT \cite{pittest} and Major
+\cite{major} for the classic {\tt Triangle.java} example.  PIT
+generates 45 mutants, of which 44 are killed for a 97.78\% mutation
+score.  Major generates 139 mutants, of which 130 are killed for a
+mutation score of 93.53\%.  The {\tt universalmutator} using the
+following commands, generates 188 mutants, of which 184 are killed for
+a mutation score of 97.87\%:
+
+{\scriptsize
+\begin{verbatim}
+% mkdir mutants
+% mutate src/main/java/triangle/Triangle.java --mutantDir mutants
+...
+% analyze_mutants src/main/java/triangle/Triangle.java "mvn test"
+  --mutantDir mutants
+\end{verbatim}
+}
