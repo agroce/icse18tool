@@ -1,11 +1,11 @@
-#1/bin/bash
+#!/bin/bash
 
 MUTATE=${HOME}/.local/bin/mutate
 
 mkdir -p mutants/invalid
 mkdir -p mutants/valid
 
-classpath=$(mvn dependency:build-classpath | grep -A1 "\[INFO\] Dependencies classpat " | grep -v "Dependencies" | paste -sd':' | sed 's;--;;g'):target/classes
+classpath=$(mvn dependency:build-classpath | grep -A1 "\[INFO\] Dependencies classpath:" | grep -v "Dependencies" | paste -sd':' | sed 's;--;;g'):target/classes
 echo ${classpath}
 mvn clean compile > /dev/null
 for f in $(find src/main/java/ -name "*.java"); do
