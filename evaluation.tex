@@ -15,15 +15,27 @@ We also applied our tool to an ongoing effort to test the {\tt
 and confirmed that our mutants were equally useful for test suite
 evaluation and improvement as the mutants produced by a much more
 complex, AST-based tool, {\tt muupi} \cite{muupi}.
+\begin{table}[t!]
+  \scriptsize
+  \caption{\label{tab:java} Java mutation results}
+  \begin{tabular}{|l|lll|lll|lll|}
+    \hline
+    Subjects&\multicolumn{3}{c|}{PIT}&\multicolumn{3}{c|}{Major}&\multicolumn{3}{c|}{{\tt universalmutator}}\\
+    &Gen&Kill&MS&Gen&Kill&MS&Gen&Kill&MS\\\hline
+\hline
+    {\tt Triangle}&87&85&97.70\%&130&130&93.53\%&188&184&97.87\%\\
+{\tt FizzBuzz}&348&288&82.76\%&244&202&82.79\%&203&176&86.70\%\\
+  \hline\end{tabular}
+  \end{table}
 
-Finally, we compared our results to PIT \cite{pittest} and Major
-\cite{major} for the classic {\tt Triangle.java} example.  PIT
-generates 45 mutants, of which 44 are killed for a 97.78\% mutation
-score.  Major generates 139 mutants, of which 130 are killed for a
-mutation score of 93.53\%.  The {\tt universalmutator} using the
-following commands, generates 188 mutants, of which 184 are killed for
-a mutation score of 97.87\%:
-
+Finally, we compared our results to PIT (Version 1.2.5-SNAPSHOT)
+\cite{pittest} and Major (Version v1.3.2) \cite{major} for both the
+classic {\tt Triangle} example and a real-world GitHub project, {\tt
+  FizzBuzz}\footnote{\url{https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition}
+}.  Note that we used all the available mutation operators for both
+Major and PIT. Also, here are the commands that we used to
+perform mutation testing using {\tt universalmutator} for {\tt
+  Triangle}:
 {\scriptsize
 \begin{verbatim}
 % mkdir mutants
@@ -32,4 +44,14 @@ a mutation score of 97.87\%:
 % analyze_mutants src/main/java/triangle/Triangle.java "mvn test"
   --mutantDir mutants
 \end{verbatim}
-}
+} The experimental results are shown in Table~\ref{tab:java}. For each
+tool on each subject, we show the number of all generated mutants
+(Column ``Gen''), the number of killed mutants (Column ``Kill''), and
+the mutation score (Column ``MS''). From the table, we can observe that all the three tools provide consistent mutation scores, demonstrating the validity of our tool for Java.
+
+\mycomment{For {\tt Triangle},
+  PIT generates 87 mutants, of which 85 are killed for a 97.70\%
+  mutation score.  Major generates 139 mutants, of which 130 are
+  killed for a mutation score of 93.53\%.  The {\tt universalmutator}
+  using the following commands, generates 188 mutants, of which 184
+  are killed for a mutation score of 97.87\%:}
