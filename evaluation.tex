@@ -33,7 +33,7 @@ Finally, we compared our results to PIT (Version 1.2.5-SNAPSHOT)
 classic {\tt Triangle} example and a real-world GitHub project, {\tt
   FizzBuzz}\footnote{\url{https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition}
 }.  Note that we used all the default mutation operators for both
-Major and PIT. Also, to illustrate, here are the commands that we used to
+Major and PIT. To illustrate, here are the commands that we used to
 perform mutation testing using {\tt universalmutator} for {\tt
   Triangle}:
 {\scriptsize
@@ -45,9 +45,9 @@ perform mutation testing using {\tt universalmutator} for {\tt
   --mutantDir mutants
 \end{verbatim}
 } The experimental results are shown in Table~\ref{tab:java}. For each
-tool on each subject, we show the number of all generated mutants
+tool on each subject, we show the number of generated mutants
 (Column ``Gen''), the number of killed mutants (Column ``Kill''), and
-the mutation score (Column ``MS''). From the table, we can observe that all the three tools provide consistent mutation scores, demonstrating the validity of our tool for Java.
+the mutation score (Column ``MS''). From the table, we can observe that all three tools provide consistent mutation scores, demonstrating the validity of our tool for Java, even without the ability to parse Java (or any Java-specific rules beyond the erasure of the {\tt synchronized} keyword) or handle multi-line constructs.
 
 \mycomment{For {\tt Triangle},
   PIT generates 87 mutants, of which 85 are killed for a 97.70\%
