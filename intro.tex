@@ -3,7 +3,7 @@
 Mutation testing \cite{PracProg,Mut2000} is a widely used technique,
 originally proposed as a way for test engineers to understand
 omissions in their testing, and now routinely used to evaluate
-novel software testing methods \cite{ISSTA13,ahmed_testedness}, and, increasingly, in software
+novel software testing methods \cite{ISSTA13,ahmed_testedness}, and in software
 fault localization \cite{Metallaxis,multilingual,TransProgTest}.
 
 Unfortunately, despite the considerable utility of mutation testing,
@@ -19,7 +19,7 @@ since mid-2016.  In fact, the simple Prolog-based tool developed by
 Jamie Andrews \cite{mutant} is still widely used in publication and
 practice, despite not even working with recent versions of the Prolog compiler.
 
-The {\tt universalmutator}\footnote{\url{https://github.com/agroce/universalmutator}} is a tool for
+The {\tt universalmutator} \footnote{\url{https://github.com/agroce/universalmutator}} is a tool for
 mutation testing \cite{PracProg,Mut2000} that aims to expand the
 applicability of mutation testing by making it easy to extend
 effective mutant generation to new programming languages.
@@ -157,8 +157,8 @@ files (a number of which are provided with the tool).  In most cases, a source f
 rule files:  there is a set of ``universal'' mutations rules, common
 to all languages, a set of rules for C-like languages, and then
 (often) as set of rules for each specific language.  For instance,
-mutating a Swift program involves generating mutants based on {\tt
-  universal.rules}, {\tt c\_like.rules}, and {\tt swift.rules}.  
+mutating a Swift program uses the {\tt .rules} files {\tt
+  universal}, {\tt c\_like}, and {\tt swift}.  
 
 Figure \ref{fig:universal} shows the set of rules that are applied in
 common to all languages.  Some of these rules are irrelevant to some
