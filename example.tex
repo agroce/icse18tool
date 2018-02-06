@@ -56,7 +56,7 @@ source file to be mutated, and the command to run to process the
 mutants.  For example, the complete process for performing mutation
 analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree example from scratch is just:
 
-
+{\scriptsize
 \begin{verbatim}
 % pip install tstl
 % git clone https://github.com/agroce/tstl.git
@@ -65,6 +65,7 @@ analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree exampl
 % mutate avl.py
 % analyze_mutants avl.py ``ulimit -t30; tstl_rt -t 10''
 \end{verbatim}
+}
 
 The {\tt mutate} tool will generate 793 valid mutants, 488 invalid
 mutants (e.g., changing an {\tt if} into a {\tt pass} in a failed
@@ -90,8 +91,7 @@ expected format for {\tt coveragefile} is a list of line numbers,
 delimited by whitespace, starting from 1; the optional {\tt --tstl}
 argument also allows the tool to process internal coverage reports
 from the {\tt tstl} testing tools.  Of the 405 surviving mutants, 67
-are in code not covered during even 5 minutes of random testing, in
-this instance mostly test code not part of the actual AVL class.
+are in code not covered during even 5 minutes of random testing, mostly test code not part of the actual AVL class.
 
 \section{Extending the Mutator}
 
