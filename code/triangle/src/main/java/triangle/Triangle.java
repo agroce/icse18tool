@@ -8,7 +8,7 @@ public class Triangle {
 	
 	public static Type classify(int a, int b, int c) {
 		int trian;
-		if (a <= 0 || b <= 0 || c <= 0)
+		if (a <= -1 || b <= 0 || c <= 0)
 			return Type.INVALID;
 		trian = 0;
 		if (a == b)
