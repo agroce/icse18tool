@@ -7,12 +7,12 @@ The tool can easily be installed using Python's {\tt pip} package management sys
 \end{code}
 
 The module is pure Python and depends on no modules other than
-built-in Python libraries, so should be usable on almost any system
+built-in Python libraries, so it should be usable on almost any system
 that supports Python 2.7+.  Mutation with TCE of a particular
 language, of course, may depend on having that language's compiler
 available (e.g., {\tt swiftc} is used to compile swift code).
 
-To mutate a source file, simply type:
+To mutate a source file, simply use the command:
 
 
 \begin{code}
@@ -40,7 +40,7 @@ mutants, e.g.:
 
 
 \begin{code}
-\% mutate foo.c --cmd ``clang -c MUTANT -I .''
+\% mutate foo.c --cmd "clang -c MUTANT -I ."
 \end{code}
 
 \noindent where {\tt MUTANT} will be replaced by the name of a
@@ -48,13 +48,13 @@ generated temporary file for the mutant, clang will be used as the
 compiler, and the current directory will be used as an include path.  Constructing a TCE checker
 to compare C and C++ object files is non-trivial, due to build
 complexities and object formats that include timestamps, so we allow
-users to write Python handlers that perform that task in a project and
-compiler specific-way.
+users to write Python handlers that perform that task in a project- and
+compiler-specific way.
 
-To analyze the generated mutants, just tell the tool the name of the
-source file to be mutated, and the command to run to process the
+To analyze the generated mutants, provide the tool both the name of the
+source file to be mutated and the command to run to process the
 mutants.  For example, the complete process for performing mutation
-analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree example from scratch is just:
+analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree example from scratch is:
 
 {\scriptsize
 \begin{verbatim}
@@ -115,7 +115,7 @@ or you may need to define basic mutation operators for a novel
 programming language with unusual syntax.  In both cases, the solution
 is simple:  just write a new {\tt .rules} file, and either add it to
 the {\tt mutate} call, or, if you really need to go outside the box,
-and the {\tt univeral} mutation rules no longer apply, use the
+and the {\tt universal} mutation rules no longer apply, use the
 language {\tt none} and explicitly note the rule file(s) to be used.
 
 Because of the regexp style of defining operators, you can write a
@@ -136,15 +136,15 @@ And this version of the rule will largely suffice.  It will, of
 course, replace {\tt while} strings in function names, but perhaps
 this isn't enough of a problem to matter.  If you do eventually decide (for instance when
 working with a large project where there are dozens of methods on a
-timed event class named with the pattenr {\tt whileFoo}) that the rule
-needs refining, you can ensure that while is a word on its own:
+timed event class named with the pattern {\tt whileFoo}) that the rule
+needs refining, you can ensure that {\tt while} is a word on its own:
 
 \begin{code}
 while(\\W) ==> if\\1 
 \end{code}
 
-\noindent This forces the character after the while to be something
-that shows the {\tt while} is not part of a valid identified, in most
+\noindent This forces the character after the {\tt while} to be something
+that shows the {\tt while} is not part of a valid identifier, in most
 languages.  We capture it using the parentheses, and reproduce the
 same character in the replacement using {\tt \textbackslash1}.
 

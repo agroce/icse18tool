@@ -144,11 +144,11 @@ apply many of the methods proposed for speeding up mutation testing,
 such as mutant schemata \cite{untch1993mutation} or ``forking''
 approaches \cite{Equiv,TopsyTurvy}.  However, we believe that having a
 somewhat inefficient mutation tool is better, for the many languages
-currently lacking tools, than having no tool at all.  Moreoever, the
+currently lacking tools, than having no tool at all.  Moreover, the
 more sophisticated techniques for making mutation testing more
 efficient also make it more difficult to allow custom mutation
 operators, discouraging project-specific approaches or experimentation
-with novel operators for, e.g., concurrency or functional programming.
+with novel operators, e.g., for concurrency or functional programming.
 
 The design of {\tt universalmutator} is simple.  After determining
 which language a source file is written in, it applies appropriate
@@ -156,7 +156,7 @@ regular expression based mutation rules, contained in {\tt .rules}
 files (a number of which are provided with the tool).  In most cases, a source file will be mutated based on multiple
 rule files:  there is a set of ``universal'' mutations rules, common
 to all languages, a set of rules for C-like languages, and then
-(often) as set of rules for each specific language.  For instance,
+(often) a set of rules for each specific language.  For instance,
 mutating a Swift program uses the {\tt .rules} files {\tt
   universal}, {\tt c\_like}, and {\tt swift}.  
 
