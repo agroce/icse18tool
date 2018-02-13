@@ -3,7 +3,7 @@
 Mutation testing~\cite{PracProg,Mut2000} is a widely used technique,
 originally proposed as a way for test engineers to understand
 omissions in their testing, and now routinely used in research, e.g., to evaluate
-novel software testing methods \cite{ISSTA13,ahmed_testedness} and to improve software
+novel software testing methods \cite{ISSTA13,ahmed_testedness,AlipourETAL2016ASE} and to improve software
 fault localization \cite{Metallaxis,multilingual,TransProgTest}.
 
 Unfortunately, despite the considerable utility of mutation testing,
@@ -37,12 +37,12 @@ The tool's design is informed by four basic principles:
   (more importantly) equivalent and redundant mutants than any tool
   that can be produced with a reasonable amount of effort.  Reducing
   the set of mutants to be tested to useful mutants is most easily
-  approached by leveraging Trivial Compiler Equivalence \cite{TCE}.
+  approached by leveraging Trivial Compiler Equivalence \cite{TCE,HaririETAL2016ISSRE}.
 \item Because of the theoretical and practical limits of mutation
   reduction strategies \cite{Gopinath1,Gopinath2}, the
   effectiveness of random sampling \cite{Gopinath3}, and the need for
   novel mutants to correlate to important classes of software defect
-  \cite{Just2014mutants}, it is essential for a mutation tool to make adding new
+  \cite{Just2014mutants,GligoricETAL2017ICSENIER,HaririETAL2018ICST}, it is essential for a mutation tool to make adding new
   kinds of mutations easy, and to support custom, project-specific
   mutants defined by developers expert in their own code base.
 \item Mutants are used in a wide variety of contexts; while simplicity limits
