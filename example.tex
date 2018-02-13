@@ -146,13 +146,8 @@ while(\\W) ==> if\\1
 
 \noindent This rule forces the character after the {\tt while} to be something
 that shows the {\tt while} is not part of a valid identifier, in most
-<<<<<<< HEAD
 languages.  We capture it using the parentheses and reproduce the
-same character in the replacement using {\tt \textbackslash1}.
-=======
-languages.  We capture it using the parentheses, and reproduce the
 same character in the replacement using the {\tt \textbackslash1} back-reference.
->>>>>>> One full pass
 
 Another use for the same mechanism is to \emph{avoid} mutating code.
 For instance, imagine testing a large project with many warning
