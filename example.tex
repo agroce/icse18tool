@@ -132,7 +132,7 @@ times.  A quick-and-dirty sketch of the rule might look like:
 while ==> if 
 \end{code}
 
-And this version of the rule will largely suffice.  It will, of
+This version of the rule will largely suffice.  It will, of
 course, replace {\tt while} strings in function names, but perhaps
 this isn't enough of a problem to matter.  If you do eventually decide (for instance when
 working with a large project where there are dozens of methods on a
@@ -143,9 +143,9 @@ needs refining, you can ensure that {\tt while} is a word on its own:
 while(\\W) ==> if\\1 
 \end{code}
 
-\noindent This forces the character after the {\tt while} to be something
+\noindent This rule forces the character after the {\tt while} to be something
 that shows the {\tt while} is not part of a valid identifier, in most
-languages.  We capture it using the parentheses, and reproduce the
+languages.  We capture it using the parentheses and reproduce the
 same character in the replacement using {\tt \textbackslash1}.
 
 Another use for the same mechanism is to \emph{avoid} mutating code.
