@@ -58,12 +58,12 @@ analysis on the TSTL \cite{tstlsttt,nfm15} Python testing tool's AVL tree exampl
 
 {\scriptsize
 \begin{verbatim}
-% pip install tstl
-% git clone https://github.com/agroce/tstl.git
-% cd tstl/examples/AVL
-% tstl avlnew.tstl
-% mutate avl.py
-% analyze_mutants avl.py ``ulimit -t30; tstl_rt -t 10''
+$ pip install tstl
+$ git clone https://github.com/agroce/tstl
+$ cd tstl/examples/AVL
+$ tstl avlnew.tstl
+$ mutate avl.py
+$ analyze_mutants avl.py "ulimit -t30; tstl_rt -t 10"
 \end{verbatim}
 }
 
@@ -103,27 +103,27 @@ just as well as files actually in the language, which would usually be
 rejected by a parser-based tool.  Model checking and
 testing tools, such as TSTL  and Spin \cite{SPIN}, embed other
 languages in test harnesses (Python for TSTL, C for Spin's PROMELA
-language).  In these cases you just mutate the appropriate file, after
+language).  In these cases one just mutates the appropriate file, after
 telling the mutator what language it is ``written in.''  Some mutants
 may be invalid, but these will just be rejected by the language tools
 and discarded.
 
 However, in some cases simply using an existing language's rules to
 mutate something close to that language is not
-all that is needed.  You may want to add a new mutant, for a project,
-or you may need to define basic mutation operators for a novel
+all that is needed.  One may want to add a new mutant, for a project,
+or one may need to define basic mutation operators for a novel
 programming language with unusual syntax.  In both cases, the solution
 is simple:  just write a new {\tt .rules} file, and either add it to
-the {\tt mutate} call, or, if you really need to go outside the box,
+the {\tt mutate} call, or, if there is a real need to go outside the box,
 and the {\tt universal} mutation rules no longer apply, use the
 language {\tt none} and explicitly note the rule file(s) to be used.
 
-Because of the regexp style of defining operators, you can write a
-quick, clumsy rule if you want to try an experimental operator out and
+Because of the regexp style of defining operators, one can write a
+quick, clumsy rule if one wants to try an experimental operator out and
 see how well it works, or refine it further.  For instance, one might
 think that changing {\tt while} loops into {\tt if} statements is a
 promising idea for a mutation operator\footnote{We added this one to
-  the universal rules file, after writing about it here.}.  This doesn't represent a common human error,
+  the universal rules file, after writing about it here.}.  This does not represent a common human error,
 probably, but can check test suites to make sure they are good at
 investigating loop iterations beyond running zero or one or more
 times.  A quick-and-dirty sketch of the rule might look like:
@@ -134,10 +134,11 @@ while ==> if
 
 This version of the rule will largely suffice.  It will, of
 course, replace {\tt while} strings in function names, but perhaps
-this isn't enough of a problem to matter.  If you do eventually decide (for instance when
-working with a large project where there are dozens of methods on a
-timed event class named with the pattern {\tt whileFoo}) that the rule
-needs refining, you can ensure that {\tt while} is a word on its own:
+this is not enough of a problem to matter.  If one does eventually
+decide that the rule needs refining (for instance, when working with a
+large project where there are dozens of methods on a timed event class
+named with the pattern {\tt whileFoo}), one can ensure that {\tt
+  while} is a word on its own, using Python's regexp:
 
 \begin{code}
 while(\\W) ==> if\\1 
@@ -145,8 +146,13 @@ while(\\W) ==> if\\1
 
 \noindent This rule forces the character after the {\tt while} to be something
 that shows the {\tt while} is not part of a valid identifier, in most
+<<<<<<< HEAD
 languages.  We capture it using the parentheses and reproduce the
 same character in the replacement using {\tt \textbackslash1}.
+=======
+languages.  We capture it using the parentheses, and reproduce the
+same character in the replacement using the {\tt \textbackslash1} back-reference.
+>>>>>>> One full pass
 
 Another use for the same mechanism is to \emph{avoid} mutating code.
 For instance, imagine testing a large project with many warning
@@ -155,9 +161,14 @@ system tests do not make use of these warnings, and so they end up as
 a large set of equivalent mutants, modifying the strings, deleting the
 statements, and modifying numeric constants or arithmetic operators in
 the warnings.  Annotating all of these with {\tt DO\_NOT\_MUTATE} is
-inconvenient and hurts program readability.  Instead, you can just add a
+inconvenient and hurts program readability.  Instead, one can just add a
 {\tt nowarnings.rules} to every {\tt mutate} call:
 
 \begin{code}
 WARNING ==> DO\_NOT\_MUTATE
 \end{code}
+
+% LocalWords:  universalmutator TCE swiftc sourcefile cpp py avltree timestamps
+% LocalWords:  TSTL AVL avl notkilled txt tstl ulimit coveragefile outfile
+% LocalWords:  whitespace Mutator PROMELA mutator whileFoo backreference
+% LocalWords:  nowarnings

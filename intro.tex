@@ -1,26 +1,26 @@
 \section{Introduction}
 
-Mutation testing \cite{PracProg,Mut2000} is a widely used technique,
+Mutation testing~\cite{PracProg,Mut2000} is a widely used technique,
 originally proposed as a way for test engineers to understand
-omissions in their testing, and now routinely used to evaluate
-novel software testing methods \cite{ISSTA13,ahmed_testedness}, and in software
+omissions in their testing, and now routinely used in research, e.g., to evaluate
+novel software testing methods \cite{ISSTA13,ahmed_testedness} and to improve software
 fault localization \cite{Metallaxis,multilingual,TransProgTest}.
 
 Unfortunately, despite the considerable utility of mutation testing,
 effective mutation testing tools are surprisingly rare.  Java alone
 has widely available, easily used mutation tools, but the most popular
-and useful of these, PIT \cite{pittest} operates only at the byte code
+and useful of these, PIT~\cite{pittest}, operates only at the bytecode
 level, making it difficult for users to read and understand the
 generated mutants.  While there are multiple tools for C mutation,
 they often crash on surprisingly simple programs, and both Milu
 (\url{https://github.com/yuejia/Milu}) and Proteum
 (\url{https://github.com/magsilva/proteum}) have not been updated
 since mid-2016.  In fact, the simple Prolog-based tool developed by
-Jamie Andrews \cite{mutant} is still widely used in publication and
+Andrews~\cite{mutant} is still widely used in research and
 practice, despite not even working with recent versions of the Prolog compiler.
 
 The {\tt universalmutator}\footnote{\url{https://github.com/agroce/universalmutator}} is a tool for
-mutation testing \cite{PracProg,Mut2000} that aims to expand the
+mutation testing that aims to expand the
 applicability of mutation testing by making it easy to extend
 effective mutant generation to new programming languages.
 The tool's design is informed by four basic principles:
@@ -45,10 +45,10 @@ The tool's design is informed by four basic principles:
   \cite{Just2014mutants}, it is essential for a mutation tool to make adding new
   kinds of mutations easy, and to support custom, project-specific
   mutants defined by developers expert in their own code base.
-\item Mutants are used in a wide variety of contexts; while it limits
-  the efficiency of our tool, we aim to make it easy to integrate it
-  into a variety of testing work-flows and software engineering
-  algorithms.  This leads us to a UNIX-like ``little tools''
+\item Mutants are used in a wide variety of contexts; while simplicity limits
+  the efficiency of our tool, we aim to make it easy to integrate the tool
+  into a variety of software testing and engineering tasks.
+  This aim leads us to a UNIX-like ``little tools''
   philosophy, where rather than having one monolithic program for
   mutant generation, execution, and presentation of results, we
   provide separate tools for mutant generation, mutant execution,
@@ -133,7 +133,7 @@ DO\_NOT\_MUTATE ==> DO\_NOT\_MUTATE
 ".+" ==> ""
 \end{code}
 }
-\caption{Universal mutation rules for all languages.}
+\caption{Universal mutation rules for all languages}
 \label{fig:universal}
 \end{figure}
 
@@ -143,8 +143,8 @@ modifying part of a constant string), and it will be difficult to
 apply many of the methods proposed for speeding up mutation testing,
 such as mutant schemata \cite{untch1993mutation} or ``forking''
 approaches \cite{Equiv,TopsyTurvy}.  However, we believe that having a
-somewhat inefficient mutation tool is better, for the many languages
-currently lacking tools, than having no tool at all.  Moreover, the
+somewhat inefficient mutation tool is better than having no tool at all
+for the many languages currently lacking tools.  Moreover, the
 more sophisticated techniques for making mutation testing more
 efficient also make it more difficult to allow custom mutation
 operators, discouraging project-specific approaches or experimentation
@@ -152,15 +152,15 @@ with novel operators, e.g., for concurrency or functional programming.
 
 The design of {\tt universalmutator} is simple.  After determining
 which language a source file is written in, it applies appropriate
-regular expression based mutation rules, contained in {\tt .rules}
+regular-expression-based mutation rules, contained in {\tt .rules}
 files (a number of which are provided with the tool).  In most cases, a source file will be mutated based on multiple
 rule files:  there is a set of ``universal'' mutations rules, common
 to all languages, a set of rules for C-like languages, and then
 (often) a set of rules for each specific language.  For instance,
-mutating a Swift program uses the {\tt .rules} files {\tt
-  universal}, {\tt c\_like}, and {\tt swift}.  
+mutating a Swift program uses the files {\tt
+  universal.rules}, {\tt c\_like.rules}, and {\tt swift.rules}.
 
-Figure \ref{fig:universal} shows the set of rules that are applied in
+Figure~\ref{fig:universal} shows the set of rules that are applied in
 common to all languages.  Some of these rules are irrelevant to some
 languages (for instance, Python does not use {\tt \&\&} as a logical
 operator), but in such cases the presence of the rule is harmless.  The
@@ -171,7 +171,7 @@ any string by the empty string), and the insertion of new {\tt break}
 statements.  The universal rules also include an example of a
 mechanism for annotating that a line should never be mutated.  This is
 a feature not (to our knowledge) present in most tools, but can be
-useful:  first, some lines may be known to related to untested code
+useful:  first, some lines may be known to relate to untested code
 (e.g., {\tt WARNING} messages that are never checked by tests);
 second, in rare instances a statement may be dangerous to mutate, such
 as a network or file system operation, but there is interest in
@@ -180,9 +180,10 @@ the structure of a mutation rule clear:  the left hand side of a
 mutation is a regular expression (regexp), using Python's notation for regexps;
 the right hand side (across the {\tt ==>}) is a Python regular
 expression replacement string, which can use {\tt \textbackslash 1}, {\tt
-  \textbackslash 2}
-etc. to include groups from the regexp that matched.  Under this
+  \textbackslash 2},
+etc.\ to include groups from the regexp that matched.  Under this
 scheme, most mutations are simple to define, and the only major
 limitation for common mutation operators is that the approach does not
 handle deletion of multiple-line statements.
 
+% LocalWords:  bytecode Milu Proteum Prolog universalmutator 1break

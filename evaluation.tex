@@ -13,14 +13,14 @@ were produced by both tools.
 We also applied our tool to an ongoing effort to test the {\tt
   pyfakefs} file system \cite{pyfakefs}, using TSTL \cite{nfm15,tstlsttt},
 and confirmed that our mutants were equally useful for test suite
-evaluation and improvement as the mutants produced by a much more
-complex, AST-based tool, {\tt muupi} \cite{muupi}.
+evaluation and improvement as the mutants produced by {\tt muupi}~\cite{muupi},
+a much more complex, AST-based tool specialized for Python.
 \begin{table}[t!]
   \scriptsize
   \caption{\label{tab:java} Java mutation results}
-  \begin{tabular}{|l|lll|lll|lll|}
+  \begin{tabular}{|l|ccc|ccc|ccc|}
     \hline
-    Subjects&\multicolumn{3}{c|}{PIT}&\multicolumn{3}{c|}{Major}&\multicolumn{3}{c|}{{\tt universalmutator}}\\
+    Subject&\multicolumn{3}{c|}{PIT}&\multicolumn{3}{c|}{Major}&\multicolumn{3}{c|}{{\tt universalmutator}}\\
     &Gen&Kill&MS&Gen&Kill&MS&Gen&Kill&MS\\\hline
 \hline
     {\tt Triangle}&45&44&97.78\%&130&130&93.53\%&188&184&97.87\%\\
@@ -28,26 +28,27 @@ complex, AST-based tool, {\tt muupi} \cite{muupi}.
   \hline\end{tabular}
   \end{table}
 
-Finally, we compared our results to PIT (Version 1.2.5-SNAPSHOT)
-\cite{pittest} and Major (Version v1.3.2) \cite{major} for both the
-classic {\tt Triangle} example and a real-world GitHub project, {\tt
+Finally, we compared our results to PIT (ver.\ 1.2.5-SNAPSHOT)~\cite{pittest}
+and Major (ver.\ v1.3.2)~\cite{major} for both the
+classic pedagogical {\tt Triangle} example and an interview-quiz GitHub project, {\tt
   FizzBuzz}\footnote{\url{https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition}
-}.  Note that we used all the default mutation operators for both
-Major and PIT. To illustrate, here are the commands that we used to
+}.  We used all the default mutation operators for both
+PIT and Major. Specifically, here are the commands we used to
 perform mutation testing using {\tt universalmutator} for {\tt
   Triangle}:
+
 {\scriptsize
 \begin{verbatim}
-% mkdir mutants
-% mutate src/main/java/triangle/Triangle.java --mutantDir mutants
+$ mkdir mutants
+$ mutate src/main/java/triangle/Triangle.java --mutantDir mutants
 ...
-% analyze_mutants src/main/java/triangle/Triangle.java "mvn test"
+$ analyze_mutants src/main/java/triangle/Triangle.java "mvn test" \\
   --mutantDir mutants
 \end{verbatim}
-} The experimental results are shown in Table~\ref{tab:java}. For each
+} Table~\ref{tab:java} shows the experimental results. For each
 tool on each subject, we show the number of generated mutants
-(Column ``Gen''), the number of killed mutants (Column ``Kill''), and
-the mutation score (Column ``MS''). From the table, we can observe that all three tools provide consistent mutation scores, demonstrating the validity of our tool for Java, even without the ability to parse Java (or any Java-specific rules beyond the erasure of the {\tt synchronized} keyword) or handle multi-line constructs.
+(column ``Gen''), the number of killed mutants (column ``Kill''), and
+the mutation score (column ``MS''). From the table, we can observe that all three tools provide similar mutation scores, demonstrating usefulness of our tool for Java, even without any ability to parse Java (or any Java-specific rules beyond the erasure of the {\tt synchronized} keyword) or handle multi-line constructs.
 
 \mycomment{For {\tt Triangle},
   PIT generates 87 mutants, of which 85 are killed for a 97.70\%
@@ -55,3 +56,5 @@ the mutation score (Column ``MS''). From the table, we can observe that all thre
   killed for a mutation score of 93.53\%.  The {\tt universalmutator}
   using the following commands, generates 188 mutants, of which 184
   are killed for a mutation score of 97.87\%:}
+
+% LocalWords:  universalmutator superset pyfakefs TSTL muupi AST FizzBuzz ver GitHub multi
