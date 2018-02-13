@@ -412,7 +412,7 @@ Computing Machinery]
 \def\l@subsubsection{\@tocline{2}{0pt}{1pc}{5pc}{}}
 \let\@footnotemark@nolink\@footnotemark
 \let\@footnotetext@nolink\@footnotetext
-\RequirePackage[bookmarksnumbered,unicode]{hyperref}
+\RequirePackage[draft,bookmarks=false]{hyperref}
 \pdfstringdefDisableCommands{%
   \def\unskip{}%
   \def\textbullet{- }%
